@@ -1,0 +1,60 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.form-inline .form-group {
+    margin: 0 10px 0 10px;
+}
+
+.form-inline .form-group label {
+    margin-right: 10px;
+}
+
+.form-inline button {
+    margin-bottom: 0;
+}
+
+.cs_width .form-control.form-control-solid {
+    width: 450px;
+}
+
+/*#id_lc_date_0,*/
+/*#id_lc_date_1 {*/
+/*    !*width: 120px;*!*/
+/*    margin-top: 5px;*/
+/*}*/
+
+.aside-menu-wrapper {
+  overflow-y: scroll !important;
+  height: 100vh;
+}
+.menu-subnav{
+    z-index: 100 !important;
+    position: relative;
+    left: -20px;
+
+}
+.aside-menu-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menu-arrow{
+      position: relative;
+      left: -20px !important;
+  }
+  
+  .subText{
+font-size: 12px;
+  }

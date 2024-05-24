@@ -1,0 +1,65 @@
+{% extends 'includes/main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!--begin::Dashboard-->
+        <!--begin::Row-->
+        <div class="row">
+            Simple Dashboard
+        </div>
+        <!--end::Dashboard-->
+    </div>
+
+{% endblock %}
+
+{% block css %}
+    <style>
+        .card.card-custom > .card-header {
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/pages/widgets.js' %}"></script>
+    <script>
+        const primary = '#6993FF';
+        const success = '#1BC5BD';
+        const danger = '#FF0000';
+        const info = '#0000FF';
+        const apexChart = "#chart_1";
+        var options = {
+            series: [
+                {
+                    name: 'Downloaded',
+                    data: [5, 10, 11, 20, 14, 30, 12, 17, 40, 13, 39, 100]
+                },
+                {
+                    name: 'Uploaded',
+                    data: [15, 30, 21, 20, 30, 10, 5, 27, 10, 30, 19, 30]
+                },
+            ],
+            chart: {
+                height: 350,
+                type: 'line',
+                toolbar: {
+                    show: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            },
+
+            colors: [success, primary, info, danger]
+        };
+
+        let chart = new ApexCharts(document.querySelector(apexChart), options);
+        chart.render();
+    </script>
+{% endblock %}

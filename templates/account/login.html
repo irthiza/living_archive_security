@@ -1,0 +1,39 @@
+{% extends 'includes/single_main.html' %}
+{% comment %} {% load static account socialaccount %} {% endcomment %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    {% comment %} {% get_providers as socialaccount_providers %} {% endcomment %}
+    <!--begin::Login Sign in form-->
+    <div class="login-signin">
+        <div class="mb-5">
+{#            {% if socialaccount_providers %}#}
+{#                <p class="text-muted font-weight-bold">Please sign in with one#}
+{#                    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>#}
+{#                    for an account and sign in below:</p>#}
+{##}
+{#                <div class="socialaccount_ballot">#}
+{##}
+{#                    <ul class="socialaccount_providers">#}
+{#                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}#}
+{#                    </ul>#}
+{##}
+{#                    <div class="login-or">or</div>#}
+{##}
+{#                </div>#}
+{##}
+{#                {% include "socialaccount/snippets/login_extra.html" %}#}
+{##}
+{#            {% else %}#}
+{#                <p>If you have not created an account yet, then please#}
+{#                    <a href="{{ signup_url }}">sign up</a> first.</p>#}
+{#            {% endif %}#}
+            <h3>Sign In To Admin</h3>
+        </div>
+        <form action="" method="post">
+            {% include 'includes/form.html' %}
+        </form>
+    </div>
+    <!--end::Login Sign in form-->
+{% endblock %}

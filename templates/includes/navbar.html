@@ -1,0 +1,74 @@
+{% load static %}
+{% load menu %}
+{% generate_menu %}
+<div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
+    <!--begin::Brand-->
+    <div class="brand border-bottom flex-column-auto" id="kt_brand" style="background-color: white;border-right: 1px solid rgba(177, 173, 173, 0.318);">
+        <!--begin::Logo-->
+        <a href="{% url 'dashboard' %}" class="menu-link">
+           <h4 style="color: #0BB7AF">Living Archive Test Site</h4>
+       </a>
+        <!-- <h2 style="color: #0BB7AF">Global Project</h2> -->
+        <!--end::Logo-->
+    </div>
+    <!--end::Brand-->
+    <!--begin::Aside Menu-->
+    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
+        <!--begin::Menu Container-->
+        <div id="kt_aside_menu" class="aside-menu my-4 aside-menu-dropdown" data-menu-vertical="1"
+             data-menu-dropdown="1" data-menu-scroll="0" data-menu-dropdown-timeout="500">
+            <!--begin::Menu Nav-->
+            <ul class="menu-nav">
+                <li class="menu-item" aria-haspopup="true">
+                    <a href="{% url 'dashboard' %}" class="menu-link">
+                        <i class="menu-icon flaticon2-architecture-and-city"></i>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+                {% with menu=menus.user %}
+                    {% for item in menu %}
+                        {% if item.children %}
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <i class="menu-icon {{ item.icon }}"></i>
+                                    <span class="menu-text">{{ item.title }}</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu">
+                                    <i class="menu-arrow"></i>
+                                    <ul class="menu-subnav" style="z-index:1">
+                                        <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                <span class="menu-link">
+                                    <span class="menu-text">{{ item.title }}</span>
+                                </span>
+                                        </li>
+                                        {% for child in item.children %}
+                                            <li class="menu-item" aria-haspopup="true">
+                                                <a href="{{ child.url }}" class="menu-link">
+                                                    <i class="menu-bullet menu-bullet-dot">
+                                                        <span></span>
+                                                    </i>
+                                                    <span class="menu-tex subText">{{ child.title }}</span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{ item.url }}" class="menu-link">
+                                    <i class="menu-icon {{ item.icon }}"></i>
+                                    <span class="menu-text">{{ item.title }}</span>
+                                </a>
+                            </li>
+
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+            </ul>
+        </div>
+        <!--end::Menu Container-->
+    </div>
+    <!--end::Aside Menu-->
+</div>

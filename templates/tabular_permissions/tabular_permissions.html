@@ -1,0 +1,143 @@
+{% load i18n %}
+<table id="tabular_permissions" class="table">
+    <thead>
+    <tr>
+        <th> {% trans 'application'|capfirst %}</th>
+        <th>{% trans 'model'|capfirst %}</th>
+        {% if django_supports_view_permissions %}
+            <th>
+                {% trans 'View' %}
+{#                <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">#}
+{#                    <input type="checkbox" class="select-all view"#}
+{#                           id="perm_view_select_all">#}
+{#                    <span></span> &nbsp; All#}
+{#                </label>#}
+            </th>
+        {% endif %}
+        <th>
+            {% trans 'Add' %}
+{#            <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">#}
+{#                <input type="checkbox" class="select-all add"#}
+{#                       id="perm_add_select_all">#}
+{#                <span></span> &nbsp; All#}
+{#            </label>#}
+        </th>
+        <th>
+            {% trans 'Change' %}
+{#            <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">#}
+{#                <input type="checkbox" class="select-all change"#}
+{#                       id="perm_change_select_all">#}
+{#                <span></span> &nbsp; All#}
+{#            </label>#}
+        </th>
+        <th>
+            {% trans 'Delete' %}
+{#            <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">#}
+{#                <input type="checkbox" class="select-all delete"#}
+{#                       id="perm_delete_select_all">#}
+{#                <span></span> &nbsp; All#}
+{#            </label>#}
+        </th>
+        {% if custom_permissions_available %}
+            <th>
+                {% trans 'other permissions'|capfirst %}
+            </th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for app in apps_available.values %}
+
+        {% for model in app.models.values %}
+
+            <tr>
+
+                {% if forloop.counter0 == 0 %}
+                    <td rowspan="{{ app.models|length }}" class="app-name"
+                        data-app-name="{{ app.label }}">{{ app.verbose_name|capfirst }}
+                    </td>
+                {% endif %}
+                <td>
+                    {{ model.verbose_name|capfirst }}
+{#                    <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">#}
+{#                        <input type="checkbox" class="select-all select-row"#}
+{#                               data-model-name="{{ model.model_name }}">#}
+{#                        <span></span> &nbsp; All#}
+{#                    </label>#}
+                </td>
+                {% if django_supports_view_permissions %}
+                    <td class="view">
+                        {% if model.view_perm_id %}
+                            <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                <input type="checkbox" class="view model-{{ model.model_name }}"
+                                       id="id_{{ model.label }}_{{ model.view_perm_name }}" name="{{ field_name }}"
+                                       value="{{ model.view_perm_id }}"
+                                        {% if model.view_perm_id in user_permissions %}
+                                       checked="checked"
+                                        {% endif %}>
+                                <span></span>
+                            </label>
+                        {% endif %}
+                    </td>
+                {% endif %}
+                <td class="add">
+                    {% if model.add_perm_id %}
+                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                <input type="checkbox" class="add model-{{ model.model_name }}"
+                                       id="id_{{ model.label }}_{{ model.add_perm_name }}" name="{{ field_name }}"
+                                       value="{{ model.add_perm_id }}"
+                                        {% if model.add_perm_id in user_permissions %}
+                                       checked="checked"
+                                        {% endif %}>
+                                <span></span>
+                        </label>
+                    {% endif %}
+                </td>
+                <td class="change">
+                    {% if model.change_perm_id %}
+                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                            <input type="checkbox" class="change model-{{ model.model_name }}"
+                                   id="id_{{ model.label }}_{{ model.change_perm_name }}" name="{{ field_name }}"
+                                   value="{{ model.change_perm_id }}"
+                                    {% if model.change_perm_id in user_permissions %}
+                                   checked="checked"
+                                    {% endif %}>
+                            <span></span>
+                        </label>
+                    {% endif %}
+                </td>
+                <td class="delete">
+                    {% if model.delete_perm_id %}
+                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                            <input type="checkbox" class="delete model-{{ model.model_name }}"
+                                   id="id_{{ model.label }}_{{ model.delete_perm_name }}" name="{{ field_name }}"
+                                   value="{{ model.delete_perm_id }}"
+                                    {% if model.delete_perm_id in user_permissions %}
+                                   checked="checked"
+                                    {% endif %}>
+                            <span></span>
+                        </label>
+                    {% endif %}
+                </td>
+                {% if custom_permissions_available %}
+                    <td>
+                        {% for custom_permission in model.custom_permissions %}
+                            <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                <input type="checkbox" class="custom model-{{ model.model_name }}"
+                                       id="id_{{ model.label }}_{{ custom_permission.0 }}" name="{{ field_name }}"
+                                       value="{{ custom_permission.2 }}"
+                                        {% if custom_permission.2 in user_permissions %}
+                                       checked="checked"
+                                        {% endif %}>
+                                <span></span> {{ custom_permission.1 }}
+                            </label>
+                        {% endfor %}
+
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+
+    {% endfor %}
+    </tbody>
+</table>
